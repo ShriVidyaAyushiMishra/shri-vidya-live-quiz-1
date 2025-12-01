@@ -1,96 +1,126 @@
-/* 🌺 ShriVidya शुद्ध–वाणी Live Quiz System - Main Script */
+/* ⚙️ ShriVidya शुद्ध–वाणी Live Quiz Cabinet
+   script.js (Functional Logic + Voice + PIN)
+   Version: 1.0 | Author: ShriVidya | Year: 2025
+*/
 
-// ========== Voice Function ==========
+/* -------------------------------
+   🔐 Admin PIN Login Control
+---------------------------------*/
+const adminPinInput = document.getElementById("admin-pin");
+const loginBtn = document.getElementById("login-btn");
+const adminButtons = document.querySelectorAll(".quiz-btn");
+
+let adminAccess = false;
+
+// Initially disable buttons
+adminButtons.forEach(btn => btn.disabled = true);
+adminButtons.forEach(btn => btn.style.opacity = "0.6");
+
+loginBtn.addEventListener("click", () => {
+  const enteredPin = adminPinInput.value.trim();
+
+  if (enteredPin === "4321") {  // 🔑 अपना PIN यहीं बदलें
+    adminAccess = true;
+    alert("✅ Admin Login सफल हुआ!");
+    adminButtons.forEach(btn => {
+      btn.disabled = false;
+      btn.style.opacity = "1";
+    });
+  } else {
+    alert("❌ गलत PIN! पुनः प्रयास करें।");
+  }
+});
+
+/* -------------------------------
+   🗣️ Voice (Text-to-Speech System)
+---------------------------------*/
 function speak(text) {
-  const msg = new SpeechSynthesisUtterance(text);
+  if (!window.speechSynthesis) {
+    alert("यह ब्राउज़र Voice फीचर सपोर्ट नहीं करता।");
+    return;
+  }
+
+  const msg = new SpeechSynthesisUtterance();
+  msg.text = text;
   msg.lang = "hi-IN";
+  msg.rate = 1;
+  msg.pitch = 1.1;
   window.speechSynthesis.speak(msg);
 }
 
-// ========== Quiz Questions ==========
-const quizData = [
-  {
-    q: "भारत की राजधानी क्या है?",
-    options: ["दिल्ली", "मुंबई", "जयपुर", "भोपाल"],
-    answer: "दिल्ली"
-  },
-  {
-    q: "ताजमहल कहाँ स्थित है?",
-    options: ["दिल्ली", "आगरा", "जयपुर", "लखनऊ"],
-    answer: "आगरा"
-  },
-  {
-    q: "सूर्य किस दिशा में उगता है?",
-    options: ["उत्तर", "दक्षिण", "पूर्व", "पश्चिम"],
-    answer: "पूर्व"
+// Auto-speak Quotes every 10 seconds
+setInterval(() => {
+  const quote = document.getElementById("typed-quote").innerText.trim();
+  if (quote) speak(quote);
+}, 10000);
+
+/* -------------------------------
+   🎯 Button Logic (Actions)
+---------------------------------*/
+document.querySelectorAll(".quiz-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    const label = button.innerText;
+    speak(label);
+
+    switch (label) {
+      case "▶️ Start Quiz":
+        alert("🧠 Quiz प्रारंभ हो रहा है...");
+        window.scrollTo(0, document.body.scrollHeight);
+        break;
+
+      case "🏆 All India Rank":
+        alert("📈 Rank Board शीघ्र आ रहा है...");
+        window.open("https://docs.google.com/spreadsheets/", "_blank");
+        break;
+
+      case "🎓 Certificate":
+        alert("📜 Certificate Generator शीघ्र सक्रिय होगा।");
+        break;
+
+      case "📊 Score Sheet":
+        window.open("https://docs.google.com/spreadsheets/", "_blank");
+        break;
+
+      case "💾 Backup Data":
+        if (adminAccess) {
+          alert("🔐 Data Download सुविधा केवल एडमिन हेतु उपलब्ध है।");
+        } else {
+          alert("🚫 पहले Admin Login करें।");
+        }
+        break;
+
+      case "📢 Post Notice":
+        alert("📝 नया Notice जोड़ने की सुविधा शीघ्र सक्रिय होगी।");
+        break;
+        case "🎧 Quiz with Sound (MP4)":
+  if (adminAccess) {
+    alert("🎬 MP4 डाउनलोड प्रारंभ हो रहा है...");
+    window.open("https://drive.google.com/drive/1ZFoUsQSQTmrRb3mjm418d-FuzKomhYl0", "_blank");
+  } else {
+    alert("🚫 केवल Admin को डाउनलोड की अनुमति है।");
   }
-];
-
-// ========== Global Variables ==========
-let currentQuestion = 0;
-let score = 0;
-
-// ========== UPI Payment Simulation ==========
-document.getElementById("upiButton").addEventListener("click", () => {
-  // Replace this with your real UPI link when ready
-  const upiLink = "upi://pay?pa=yourupi@okaxis&pn=ShriVidyaQuiz&am=10&cu=INR";
-  window.open(upiLink, "_blank");
-
-  document.getElementById("payment-status").innerText =
-    "कृपया भुगतान पूरा करें और वापस लौटें...";
-  
-  // After payment success (for demo purpose, delay of 5 seconds)
-  setTimeout(() => {
-    document.getElementById("payment-section").style.display = "none";
-    document.getElementById("quiz-section").style.display = "block";
-    startQuiz();
-  }, 5000);
+  break;
+    }
+  });
 });
 
-// ========== Quiz Logic ==========
-function startQuiz() {
-  showQuestion();
-}
+/* -------------------------------
+   🧠 Google Verify Box Enhancement
+---------------------------------*/
+const verifyBox = document.getElementById("verify-box");
+verifyBox.addEventListener("focus", () => {
+  verifyBox.style.borderColor = "#36d1dc";
+});
+verifyBox.addEventListener("blur", () => {
+  verifyBox.style.borderColor = "#bcb6ff";
+});
 
-function showQuestion() {
-  const box = document.getElementById("question-box");
-  if (currentQuestion < quizData.length) {
-    const q = quizData[currentQuestion];
-    let html = `<h3>${q.q}</h3>`;
-    q.options.forEach(opt => {
-      html += `<button class='optBtn' onclick='checkAnswer("${opt}")'>${opt}</button><br>`;
-    });
-    box.innerHTML = html;
-    speak(q.q); // Voice Read Question
-  } else {
-    endQuiz();
-  }
-}
-
-function checkAnswer(selected) {
-  const correct = quizData[currentQuestion].answer;
-  if (selected === correct) {
-    score++;
-    speak("सही उत्तर!");
-  } else {
-    speak("गलत उत्तर!");
-  }
-  currentQuestion++;
-  setTimeout(showQuestion, 1500);
-}
-
-// ========== Result Section ==========
-function endQuiz() {
-  document.getElementById("quiz-section").style.display = "none";
-  document.getElementById("result-section").style.display = "block";
-  const scoreCard = document.getElementById("scoreCard");
-  scoreCard.innerHTML = `<h3>आपका स्कोर: ${score}/${quizData.length}</h3>`;
-  speak(`आपका स्कोर ${score} में से ${quizData.length} है`);
-}
-
-// ========== Facebook Share Button ==========
-document.getElementById("shareFB").addEventListener("click", () => {
-  const shareURL = "https://yourusername.github.io/shri-vidya-live-quiz-1/";
-  const fbLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareURL)}`;
-  window.open(fbLink, "_blank");
+/* -------------------------------
+   🌺 Smooth Scroll Effect
+---------------------------------*/
+document.querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    btn.style.transform = "scale(0.97)";
+    setTimeout(() => (btn.style.transform = "scale(1)"), 120);
+  });
 });
