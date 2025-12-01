@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShriVidya शुद्ध–वाणी Live Quiz System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+  <header>
+    <h1 id="quiz-title">ShriVidya शुद्ध–वाणी Live Quiz System</h1>
+    <p>Voice + UPI + ScoreCard + Rank System</p>
+  </header>
+
+  <!-- Payment Section -->
+  <section id="payment-section">
+    <h2>क्विज़ शुरू करने के लिए भुगतान करें 💰</h2>
+    <p>यह क्विज़ दृष्टिबाधित विद्यार्थियों के लिए विशेष रूप से बनाई गई है।</p>
+    <button id="upiButton">🔗 UPI से भुगतान करें</button>
+    <p id="payment-status"></p>
+  </section>
+
+  <!-- Quiz Section -->
+  <section id="quiz-section" style="display:none;">
+    <div id="question-box"></div>
+    <button id="nextBtn">अगला प्रश्न ➜</button>
+  </section>
+
+  <!-- Result Section -->
+  <section id="result-section" style="display:none;">
+    <h2>🎓 आपका परिणाम</h2>
+    <div id="scoreCard"></div>
+    <button id="shareFB">📘 Facebook पर शेयर करें</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
