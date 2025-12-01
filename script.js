@@ -19,7 +19,7 @@ adminButtons.forEach(btn => btn.style.opacity = "0.6");
 loginBtn.addEventListener("click", () => {
   const enteredPin = adminPinInput.value.trim();
 
-  if (enteredPin === "4321") {  // 🔑 अपना PIN यहीं बदलें
+  if (enteredPin === "8565") {  // 🔑 अपना PIN यहीं बदलें
     adminAccess = true;
     alert("✅ Admin Login सफल हुआ!");
     adminButtons.forEach(btn => {
