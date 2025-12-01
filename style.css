@@ -1,90 +1,268 @@
-/* ShriVidya शुद्ध–वाणी Live Quiz System - Style File */
+/* 🌺 ShriVidya शुद्ध–वाणी Live Quiz Cabinet
+   Modern Professional Edition (Style v1.0)
+   Author: ShriVidya | Year: 2025
+*/
 
-/* Basic Page Setup */
+/* ------------------------
+   🌈 Universal Page Styling
+-------------------------*/
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to bottom right, #ffecd2, #fcb69f);
   margin: 0;
-  padding: 0;
-  color: #222;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #faf7ff 0%, #f5f0ff 100%);
+  color: #1a1a1a;
+  overflow-x: hidden;
+}
+
+/* Smooth fade animation for all sections */
+section, div, footer {
+  animation: fadeIn 1s ease-in-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------
+   🌺 Organizer Header
+-------------------------*/
+.sv-header {
+  background: linear-gradient(90deg, #7b2ff7, #f107a3);
+  color: #fff;
   text-align: center;
+  padding: 12px 0;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-/* Header */
-header {
-  background: linear-gradient(90deg, #c31432, #240b36);
-  color: white;
-  padding: 20px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-
-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  letter-spacing: 1px;
-}
-
-header p {
-  font-size: 0.95rem;
-  color: #ffd6d6;
-}
-
-/* Section Styling */
-section {
-  background: #fff;
-  margin: 20px auto;
-  padding: 20px;
+/* ------------------------
+   🌸 Typewriter Quotes
+-------------------------*/
+#quote-box {
+  margin: 35px auto 20px;
+  font-size: 1.4rem;
+  font-weight: 600;
   width: 90%;
-  max-width: 500px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  max-width: 850px;
+  text-align: center;
+  background: linear-gradient(90deg, #ff512f, #dd2476);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
 }
 
-/* Buttons */
-button {
-  background: linear-gradient(90deg, #ff512f, #dd2476);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
+#cursor {
+  color: #ff512f;
+  font-weight: bold;
+  animation: blink 0.9s infinite;
+}
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+/* ------------------------
+   🔐 Admin Login Box
+-------------------------*/
+#admin-login {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(6px);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  width: fit-content;
+  margin: 0 auto 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#admin-pin {
+  padding: 8px 10px;
   font-size: 1rem;
+  border: 1.5px solid #d0bfff;
+  border-radius: 6px;
+  outline: none;
+  text-align: center;
+  width: 180px;
+  transition: 0.3s ease;
+}
+#admin-pin:focus {
+  border-color: #7b2ff7;
+  box-shadow: 0 0 5px #b197fc;
+}
+
+#login-btn {
+  background: linear-gradient(90deg, #36d1dc, #5b86e5);
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
+#login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(91, 134, 229, 0.4);
+}
 
-button:hover {
+/* ------------------------
+   🏆 Admin Control Panel Buttons
+-------------------------*/
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  width: 90%;
+  max-width: 850px;
+  margin: 0 auto 25px;
+}
+
+.quiz-btn {
+  background: linear-gradient(90deg, #ff512f, #dd2476);
+  border: none;
+  color: white;
+  padding: 12px 0;
+  font-size: 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  transition: all 0.25s ease;
+}
+
+.quiz-btn::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: rgba(255,255,255,0.2);
+  transform: skewX(-25deg);
+  transition: 0.4s;
+  z-index: 1;
+}
+
+.quiz-btn:hover::before {
+  left: 100%;
+}
+
+.quiz-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(221, 36, 118, 0.35);
+}
+
+/* ------------------------
+   🧠 Quiz Embed Section
+-------------------------*/
+iframe {
+  border: none;
+  width: 95%;
+  height: 620px;
+  border-radius: 10px;
+  margin: 10px auto 20px;
+  display: block;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* ------------------------
+   🔍 Google सत्यापन बॉक्स
+-------------------------*/
+#google-verify {
+  margin: 25px auto;
+}
+
+#verify-box {
+  width: 60%;
+  max-width: 450px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1.5px solid #bcb6ff;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s ease;
+}
+#verify-box:focus {
+  border-color: #7b2ff7;
+  box-shadow: 0 0 8px rgba(123, 47, 247, 0.4);
+}
+
+#verify-btn {
+  background: linear-gradient(90deg, #00b09b, #96c93d);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  margin-left: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+#verify-btn:hover {
   transform: scale(1.05);
-  background: linear-gradient(90deg, #dd2476, #ff512f);
+  box-shadow: 0 5px 12px rgba(0, 176, 155, 0.4);
 }
 
-/* Payment Section */
-#payment-section h2 {
-  color: #b30059;
+/* ------------------------
+   📜 Notice Board
+-------------------------*/
+#notice-board {
+  background: #fff;
+  border-left: 5px solid #7b2ff7;
+  width: 90%;
+  max-width: 850px;
+  margin: 25px auto;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.6;
+  position: relative;
+}
+#notice-board::before {
+  content: "📢";
+  position: absolute;
+  top: -20px;
+  right: 15px;
+  font-size: 1.8rem;
+  opacity: 0.2;
 }
 
-#payment-status {
-  margin-top: 10px;
-  font-weight: bold;
+/* ------------------------
+   📧 Footer
+-------------------------*/
+footer {
+  margin-top: 35px;
+  padding: 12px;
+  font-size: 0.9rem;
+  color: #444;
+  background: linear-gradient(90deg, #f5f0ff, #f7f5fb);
+  border-top: 2px solid #7b2ff7;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.05);
+}
+footer a {
+  color: #7b2ff7;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
 }
 
-/* Quiz Box */
-#question-box {
-  font-size: 1.1rem;
-  margin-bottom: 15px;
-}
-
-/* Result Section */
-#result-section h2 {
-  color: #2e7d32;
-}
-
-/* Responsive Design */
+/* ------------------------
+   📱 Responsive (Mobile)
+-------------------------*/
 @media (max-width: 600px) {
-  header h1 {
-    font-size: 1.4rem;
-  }
-  section {
-    width: 95%;
-    padding: 15px;
-  }
+  #quote-box { font-size: 1.1rem; }
+  #verify-box { width: 85%; margin-bottom: 10px; }
+  iframe { height: 480px; }
+  .sv-header { font-size: 1.1rem; }
 }
