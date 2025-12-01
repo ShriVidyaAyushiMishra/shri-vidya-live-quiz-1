@@ -3,37 +3,264 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ShriVidya शुद्ध–वाणी Live Quiz System</title>
-  <link rel="stylesheet" href="style.css">
+  <title>ShriVidya शुद्ध–वाणी Live Quiz Cabinet</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f7f5fb;
+      color: #222;
+      text-align: center;
+    }
+
+    /* 🌺 संयोजक पट्टी */
+    .sv-header {
+      background: linear-gradient(90deg, #7b2ff7, #f107a3);
+      color: #fff;
+      padding: 10px 0;
+      font-weight: 700;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* 🌸 सुविचार Typewriter बॉक्स */
+    #quote-box {
+      margin: 25px auto;
+      font-size: 1.3rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, #ff512f, #dd2476);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      width: 90%;
+      max-width: 800px;
+    }
+
+    #cursor {
+      color: #ff512f;
+      font-weight: bold;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* 🔐 Admin Login Panel */
+    #admin-login {
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    #admin-pin {
+      padding: 8px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
+      text-align: center;
+    }
+
+    #login-btn {
+      background: linear-gradient(90deg, #36d1dc, #5b86e5);
+      border: none;
+      color: #fff;
+      padding: 8px 16px;
+      margin-left: 6px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* 🏆 Admin Control Buttons */
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      width: 90%;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+
+    .quiz-btn {
+      background: linear-gradient(90deg, #ff512f, #dd2476);
+      border: none;
+      color: white;
+      padding: 12px 0;
+      font-size: 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .quiz-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(221, 36, 118, 0.4);
+    }
+
+    /* 🧠 Quiz Embed Section */
+    iframe {
+      border: none;
+      width: 95%;
+      height: 600px;
+      border-radius: 8px;
+      margin: 15px 0;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    /* 🔍 Google Verification */
+    #google-verify {
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    #verify-box {
+      width: 60%;
+      max-width: 500px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #aaa;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    #verify-btn {
+      background: linear-gradient(90deg, #00b09b, #96c93d);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      margin-left: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* 📜 Notice Board */
+    #notice-board {
+      background: #fff;
+      border-left: 5px solid #7b2ff7;
+      width: 90%;
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      text-align: left;
+    }
+
+    /* 📧 Footer */
+    footer {
+      margin-top: 30px;
+      padding: 10px;
+      font-size: 0.9rem;
+      color: #555;
+      background: #f0e9fc;
+      border-top: 2px solid #7b2ff7;
+    }
+  </style>
 </head>
-
 <body>
-  <header>
-    <h1 id="quiz-title">ShriVidya शुद्ध–वाणी Live Quiz System</h1>
-    <p>Voice + UPI + ScoreCard + Rank System</p>
-  </header>
 
-  <!-- Payment Section -->
-  <section id="payment-section">
-    <h2>क्विज़ शुरू करने के लिए भुगतान करें 💰</h2>
-    <p>यह क्विज़ दृष्टिबाधित विद्यार्थियों के लिए विशेष रूप से बनाई गई है।</p>
-    <button id="upiButton">🔗 UPI से भुगतान करें</button>
-    <p id="payment-status"></p>
+  <!-- 🌺 संयोजक पट्टी -->
+  <div class="sv-header">संयोजक: ShriVidya 🌸</div>
+
+  <!-- 🌸 सुविचार Section -->
+  <div id="quote-box">
+    <span id="typed-quote"></span><span id="cursor">|</span>
+  </div>
+
+  <!-- 🔐 Admin Login -->
+  <div id="admin-login">
+    <input type="password" id="admin-pin" placeholder="Admin PIN डालें">
+    <button id="login-btn">प्रवेश करें</button>
+  </div>
+
+  <!-- 🏆 Admin Buttons -->
+  <section id="admin-panel">
+    <div class="button-grid">
+      <button class="quiz-btn">▶️ Start Quiz</button>
+      <button class="quiz-btn">🏆 All India Rank</button>
+      <button class="quiz-btn">🎓 Certificate</button>
+      <button class="quiz-btn">📊 Score Sheet</button>
+      <button class="quiz-btn">💾 Backup Data</button>
+      <button class="quiz-btn">📢 Post Notice</button>
+    </div>
   </section>
 
-  <!-- Quiz Section -->
-  <section id="quiz-section" style="display:none;">
-    <div id="question-box"></div>
-    <button id="nextBtn">अगला प्रश्न ➜</button>
-  </section>
+  <!-- 🧠 Quiz Embed -->
+  <iframe src="https://yourusername.github.io/shri-vidya-live-quiz-1/"></iframe>
 
-  <!-- Result Section -->
-  <section id="result-section" style="display:none;">
-    <h2>🎓 आपका परिणाम</h2>
-    <div id="scoreCard"></div>
-    <button id="shareFB">📘 Facebook पर शेयर करें</button>
-  </section>
+  <!-- 🔍 Google सत्यापन बॉक्स -->
+  <div id="google-verify">
+    <input type="text" id="verify-box" placeholder="प्रश्न या शब्द यहाँ लिखें...">
+    <button id="verify-btn">🔍 सत्यापित करें</button>
+  </div>
 
-  <script src="script.js"></script>
+  <!-- 📜 Notice Board -->
+  <div id="notice-board">
+    <strong>📢 अगला Quiz:</strong> भारतीय संस्कृति – 5 दिसम्बर<br>
+    <strong>🕒 पंजीकरण:</strong> 3 से 4 दिसम्बर<br>
+    <strong>🎙️ दृष्टिबाधित छात्रों हेतु:</strong> Voice Mode निशुल्क रहेगा।
+  </div>
+
+  <!-- 📧 Footer -->
+  <footer>
+    📧 संपर्क: shreevidyaquiz@gmail.com | © 2025 ShriVidya शुद्ध–वाणी Live Quiz System<br>
+    Powered by GitHub + Google + Blogger
+  </footer>
+
+  <script>
+    /* 🌸 Typewriter Animation */
+    const quotes = [
+      "ज्ञान वही सच्चा दीप है, जो अंधकार नहीं, दृष्टि देता है।",
+      "जो स्वयं को साध लेता है, वही संसार को जीत लेता है।",
+      "सफल वही नहीं होता जो गिरता नहीं, बल्कि वही जो हर बार उठ खड़ा होता है।",
+      "भय का अंत वहीं होता है जहाँ विश्वास प्रारंभ होता है।",
+      "हर चुनौती भीतर छिपे दिव्य सामर्थ्य को जगाने का निमंत्रण है।",
+      "जो कर्म में सौंदर्य खोज ले, वही जीवन को कला बना देता है।",
+      "आत्मविश्वास वह दीप है, जो सबसे अंधेरी रात में भी दिशा दिखाता है।",
+      "Technology तभी पवित्र है, जब वह मनुष्य के भीतर की ज्योति को प्रज्वलित करे।",
+      "आवाज़ मशीन की नहीं — वाणी साधना की होनी चाहिए।",
+      "ज्ञान का सर्वोच्च स्वरूप वह है, जो करुणा में बदल जाए।"
+    ];
+
+    let idx = 0, charIdx = 0;
+    const quoteEl = document.getElementById("typed-quote");
+
+    function type() {
+      if (charIdx < quotes[idx].length) {
+        quoteEl.textContent += quotes[idx].charAt(charIdx);
+        charIdx++;
+        setTimeout(type, 80);
+      } else {
+        setTimeout(erase, 2000);
+      }
+    }
+
+    function erase() {
+      if (charIdx > 0) {
+        quoteEl.textContent = quotes[idx].substring(0, charIdx - 1);
+        charIdx--;
+        setTimeout(erase, 40);
+      } else {
+        idx = (idx + 1) % quotes.length;
+        setTimeout(type, 500);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => setTimeout(type, 800));
+
+    /* 🔍 Google सत्यापन कार्य */
+    document.getElementById("verify-btn").addEventListener("click", () => {
+      const query = document.getElementById("verify-box").value.trim();
+      if (query) {
+        const googleURL = "https://www.google.com/search?q=" + encodeURIComponent(query);
+        window.open(googleURL, "_blank");
+      } else {
+        alert("कृपया कोई प्रश्न या शब्द लिखें।");
+      }
+    });
+  </script>
 </body>
 </html>
