@@ -11,7 +11,7 @@
       ✅ Cloud Deployment (GitHub + Netlify + GCP)
    ============================================================ */
 
-const CLOUD_API_URL = "https://YOUR_CLOUD_ENDPOINT_URL_HERE"; 
+const CLOUD_API_URL = "https://script.google.com/macros/s/AKfycbyJY9A3Tsnvscc3AFa6hlIuLJQNGf7SBNI3wJ8Go30PuVgoW-rMDZD-otFAsZ_qHAvu/exec"; 
 // 🔗 यहाँ Google Cloud API Gateway से मिला स्थायी URL डालें (https://.../exec नहीं)
 
 const API_KEY = "YOUR_PRIVATE_API_KEY_HERE"; 
