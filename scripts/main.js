@@ -1,6 +1,6 @@
 /* ============================================================
    🕉️ ShriVidya शुद्ध–वाणी Live Quiz System
-   Hybrid Core Engine — Version 5.4Q•Core
+   Hybrid Core Engine — Version 5.4Q•Core+Voice
    ------------------------------------------------------------
    यह फ़ाइल क्विज़ की मुख्य कार्यप्रणाली (Main Logic Controller)
    के रूप में कार्य करती है।
@@ -37,6 +37,14 @@ function loadQuestion() {
     btn.onclick = () => selectOption(index);
     optionsBox.appendChild(btn);
   });
+
+  // 🎧 Voice Engine Trigger — प्रत्येक प्रश्न पर आवाज़ चलाने के लिए
+  try {
+    const event = new CustomEvent("questionLoaded", { detail: q });
+    document.dispatchEvent(event);
+  } catch (err) {
+    console.warn("⚠️ Voice Engine Trigger Error:", err);
+  }
 }
 
 // 🟢 Select Option
